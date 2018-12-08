@@ -16,5 +16,18 @@ namespace HBImageFolderize
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                String name = folderBrowserDialog.SelectedPath;
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(name);
+                int count = dir.GetFiles().Length;
+                MessageBox.Show(count.ToString());
+            }
+        }
     }
 }
