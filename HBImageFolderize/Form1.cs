@@ -12,6 +12,8 @@ namespace HBImageFolderize
 {
     public partial class Form1 : Form
     {
+        public string FolderName = "Folder";
+        public string FolderPath;
         public Form1()
         {
             InitializeComponent();
@@ -23,11 +25,25 @@ namespace HBImageFolderize
 
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                String name = folderBrowserDialog.SelectedPath;
-                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(name);
+                FolderPath = folderBrowserDialog.SelectedPath;
+                System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(FolderPath);
                 int count = dir.GetFiles().Length;
                 MessageBox.Show(count.ToString());
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(FolderPath);
+            int FolderNumber = Convert.ToInt32(numericUpDown1.Value);
+            for (int i = 1; i <= FolderNumber; i++)
+            {
+                string pathString = System.IO.Path.Combine(FolderPath, FolderName + Convert.ToString(i));
+                System.IO.Directory.CreateDirectory(pathString);
+            }
+            MessageBox.Show(FolderNumber.ToString());
+
+
         }
     }
 }
